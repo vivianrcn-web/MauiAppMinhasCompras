@@ -67,7 +67,7 @@ public partial class ListaProduto : ContentPage
         DisplayAlert("Total dos Produtos", msg, "OK");
     }
 
-    private async Task MenuItem_Clicked(object sender, EventArgs e)
+    private async void MenuItem_Clicked(object sender, EventArgs e)
     {
         try
         {
@@ -87,6 +87,23 @@ public partial class ListaProduto : ContentPage
         catch (Exception ex)
         {
             await DisplayAlert("Ops", ex.Message, "OK");
+        }
+    }
+
+    private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        try
+        {
+            Produto p = e.SelectedItem as Produto;
+
+            Navigation.PushAsync(new Views.EditarProduto
+            {
+                BindingContext = p,
+            });
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Ops", ex.Message, "OK");
         }
     }
 }
